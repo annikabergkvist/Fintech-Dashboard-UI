@@ -1,31 +1,46 @@
-Wise Dashboard UI — Design Engineer Project
-A pixel-close recreation of the Wise dashboard, built from scratch as a design engineering exercise. The goal was to move beyond static mockups and implement a real, interactive UI using a production-ready component architecture — the same stack used in modern product teams.
-Live demo → your-vercel-url.vercel.app (replace with your Vercel link)
-Show Image (add a screenshot)
+# Wise Dashboard UI — Design Engineer Project
 
-What this project demonstrates
+A pixel-close recreation of the [Wise](https://wise.com) dashboard, built from scratch as a design engineering exercise. The goal was to move beyond static mockups and implement a real, interactive UI using a production-ready component architecture — the same stack used in modern product teams.
 
-Translating a complex, real-world product UI into clean, maintainable component code
-Setting up and customising a design system using shadcn/ui and Tailwind CSS 4
-Implementing semantic colour tokens for both light and dark mode
-Structuring a Next.js App Router project the way a product team would
-Thinking in components — knowing what to make reusable vs what to keep local
+Live demo → [your-vercel-url.vercel.app](#) *(replace with your Vercel link)*
 
+![Dashboard preview](./preview-light.png) *(add a screenshot)*
 
-Stack
+---
 
-Next.js 16 — App Router
-shadcn/ui — Radix-based accessible components
-Tailwind CSS 4 — utility-first styling
-TypeScript
+## What this project demonstrates
 
+- Translating a complex, real-world product UI into clean, maintainable component code
+- Setting up and customising a design system using shadcn/ui and Tailwind CSS 4
+- Implementing semantic colour tokens for both light and dark mode
+- Structuring a Next.js App Router project the way a product team would
+- Thinking in components — knowing what to make reusable vs what to keep local
 
-Getting started
-bashnpm install
+---
+
+## Stack
+
+- **Next.js 16** — App Router
+- **shadcn/ui** — Radix-based accessible components
+- **Tailwind CSS 4** — utility-first styling
+- **TypeScript**
+
+---
+
+## Getting started
+
+```bash
+npm install
 npm run dev
-Open http://localhost:3000 in your browser.
+```
 
-Project structure
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Project structure
+
+```
 src/
 ├── app/
 │   ├── layout.tsx          # Root layout: sidebar, header, fonts
@@ -42,15 +57,35 @@ src/
 │
 └── lib/
     └── utils.ts            # cn() helper
+```
 
-Design decisions
-Tokens over hardcoded values — all colours live as CSS variables in globals.css. Tailwind and shadcn read them via @theme, which means switching the entire theme is a one-file change.
-Semantic naming — variables like --primary, --muted, --sidebar-accent describe intent, not appearance. This makes dark mode straightforward and keeps components decoupled from specific colour values.
-shadcn as a starting point, not a constraint — component variants and base styles are edited directly (that's the point of shadcn). The UI primitives in src/components/ui/ are owned code, not a locked library.
+---
 
-Key files to look at
-WhatWhereColour tokens, dark mode, radiussrc/app/globals.cssDashboard layout and contentsrc/app/page.tsxSidebar navigationsrc/components/app-sidebar.tsxHeadersrc/components/app-header.tsxButton variantssrc/components/ui/button.tsxCard stylessrc/components/ui/card.tsx
+## Design decisions
 
-About
-Built by Annika Bergkvist — design engineer based in Sweden, working at the intersection of product design and frontend development.
-LinkedIn · GitHub
+**Tokens over hardcoded values** — all colours live as CSS variables in `globals.css`. Tailwind and shadcn read them via `@theme`, which means switching the entire theme is a one-file change.
+
+**Semantic naming** — variables like `--primary`, `--muted`, `--sidebar-accent` describe *intent*, not appearance. This makes dark mode straightforward and keeps components decoupled from specific colour values.
+
+**shadcn as a starting point, not a constraint** — component variants and base styles are edited directly (that's the point of shadcn). The UI primitives in `src/components/ui/` are owned code, not a locked library.
+
+---
+
+## Key files to look at
+
+| What | Where |
+|---|---|
+| Colour tokens, dark mode, radius | `src/app/globals.css` |
+| Dashboard layout and content | `src/app/page.tsx` |
+| Sidebar navigation | `src/components/app-sidebar.tsx` |
+| Header | `src/components/app-header.tsx` |
+| Button variants | `src/components/ui/button.tsx` |
+| Card styles | `src/components/ui/card.tsx` |
+
+---
+
+## About
+
+Built by [Annika Bergkvist](https://annika-b.webflow.io) — design engineer based in Sweden, working at the intersection of product design and frontend development.
+
+[LinkedIn](https://www.linkedin.com/in/annikabergkvist/) · [GitHub](https://github.com/annikabergkvist)
