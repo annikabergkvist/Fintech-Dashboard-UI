@@ -36,7 +36,7 @@ export function AppHeader() {
             <Button variant="ghost" className="flex items-center gap-2">
               <Avatar className="size-8">
                 <AvatarImage src="" alt="Carolina Fernandes" />
-                <AvatarFallback className="bg-muted text-muted-foreground text-xs">
+                <AvatarFallback className="bg-muted/25 text-muted-foreground text-xs">
                   CF
                 </AvatarFallback>
               </Avatar>
