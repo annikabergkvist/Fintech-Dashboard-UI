@@ -1,9 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-"use client"
-
 import Link from "next/link"
-import * as React from "react"
-import twemoji from "twemoji"
+import { EU, AU, CA, GB } from "country-flag-icons/react/3x2"
 import {
   Card,
   CardContent,
@@ -11,13 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ArrowUpCircle, PlusCircle, ChevronDown } from "lucide-react"
+import { ArrowUp, Plus, Landmark } from "lucide-react"
 
 /**
  * DESIGNER NOTE: Wise-style dashboard — layout and structure only.
@@ -31,75 +21,59 @@ import { ArrowUpCircle, PlusCircle, ChevronDown } from "lucide-react"
  */
 
 const CURRENCY_ACCOUNTS = [
-  // Add FE0F to force emoji presentation (some fonts/browsers otherwise can render flags blank/text).
-  { code: "EUR", label: "EUR", accountId: "51568", balance: "1.00", flag: "🇪🇺\uFE0F" },
-  { code: "AUD", label: "AUD", accountId: "30779", balance: "0.00", flag: "🇦🇺\uFE0F" },
-  { code: "CAD", label: "CAD", accountId: "15376", balance: "0.00", flag: "🇨🇦\uFE0F" },
-  { code: "GBP", label: "GBP", accountId: "13159", balance: "0.00", flag: "🇬🇧\uFE0F" },
-]
+  { code: "EUR", label: "EUR", accountId: "51568", balance: "98.00", Flag: EU },
+  { code: "AUD", label: "AUD", accountId: "30779", balance: "0.00", Flag: AU },
+  { code: "CAD", label: "CAD", accountId: "15376", balance: "0.00", Flag: CA },
+  { code: "GBP", label: "GBP", accountId: "13159", balance: "0.00", Flag: GB },
+] as const
 
 const RECENT_TRANSACTIONS = [
-  { id: "1", icon: ArrowUpCircle, name: "Hannah Johnson", subtitle: "Sent - 18 Apr", amount: "49 EUR", isCredit: false },
-  { id: "2", icon: PlusCircle, name: "To EUR", subtitle: "Added - 18 Apr", amount: "+ 50 EUR", subAmount: "50.44 EUR", isCredit: true },
-  { id: "3", icon: ArrowUpCircle, name: "Brandon Bolt", subtitle: "Sent - 2 Apr", amount: "110 EUR", isCredit: false },
+  { id: "1", icon: ArrowUp, name: "Hannah Johnson", subtitle: "Sent - 18 Apr", amount: "49 EUR", isCredit: false },
+  { id: "2", icon: Plus, name: "To EUR", subtitle: "Added - 18 Apr", amount: "+ 50 EUR", subAmount: "50.44 EUR", isCredit: true },
+  { id: "3", icon: ArrowUp, name: "Brandon Bolt", subtitle: "Sent - 2 Apr", amount: "110 EUR", isCredit: false },
 ]
 
 export default function Home() {
-  const emojiRootRef = React.useRef<HTMLDivElement | null>(null)
-
-  React.useEffect(() => {
-    if (!emojiRootRef.current) return
-    // Convert emoji text nodes to SVG images so flags render even if OS emoji fonts are missing.
-    twemoji.parse(emojiRootRef.current, {
-      folder: "svg",
-      ext: ".svg",
-    })
-  }, [])
-
   return (
-    <div ref={emojiRootRef} className="flex flex-1 flex-col gap-8 p-6">
+    <div className="mx-auto flex w-full max-w-[976px] flex-1 flex-col gap-8 py-6 pr-6 pb-6 pl-6 md:pl-0">
       {/* Total balance + actions */}
       <section className="space-y-4">
-        <h2 className="text-sm font-medium text-muted-foreground">Total balance</h2>
-        <p className="text-3xl font-bold tracking-tight">1.00 EUR</p>
+        <div className="space-y-0">
+          <p className="text-sm font-medium text-muted-foreground">Total balance</p>
+          <h2 className="text-3xl font-bold tracking-tight">98.00 EUR</h2>
+        </div>
         <div className="flex flex-wrap gap-2">
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Send
+          <Button size="sm" variant="default">
+            Send money
           </Button>
-          <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-primary/90">
+          <Button size="sm" variant="secondary">
             Add money
           </Button>
-          <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-primary/90">
-            Request
+          <Button size="sm" variant="secondary">
+            Request money
           </Button>
         </div>
       </section>
 
       {/* Currency account cards */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
         {CURRENCY_ACCOUNTS.map((account) => (
           <Card
             key={account.code}
-            className="bg-muted/25 dark:bg-muted/50"
+            className="h-[206px] w-[256px] shrink-0 gap-0 bg-muted/50 dark:bg-muted/50"
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <span
-                className="text-lg"
-                style={{
-                  fontFamily:
-                    "Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, Segoe UI Symbol, sans-serif",
-                }}
-              >
-                {/* Debug/fallback: show code even if emoji glyph doesn't render */}
-                {account.flag}{" "}
-                <span className="text-[10px] font-medium opacity-70">
-                  {account.code}
-                </span>
-              </span>
+            <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
+              <div className="flex size-10 items-center justify-center overflow-hidden rounded-full ring-1 ring-border/50">
+                <account.Flag aria-hidden className="h-full w-full scale-[1.5]" />
+              </div>
               <CardTitle className="text-base font-medium">{account.label}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-1">
-              <p className="text-xs text-muted-foreground">Account - {account.accountId}</p>
+            <CardContent className="mt-auto space-y-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Landmark className="size-3.5" aria-hidden />
+                <span aria-hidden>•</span>
+                <span>{account.accountId}</span>
+              </div>
               <p className="text-2xl font-bold">{account.balance}</p>
             </CardContent>
           </Card>
@@ -107,32 +81,46 @@ export default function Home() {
       </section>
 
       {/* Recent transactions */}
-      <section className="space-y-4">
+      <section className="mt-6 mb-[88px] space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Transactions</h2>
+          <h2 className="text-base font-semibold text-foreground">Transactions</h2>
           <Link
             href="/"
-            className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="pr-4 text-xs font-bold text-foreground underline underline-offset-4 hover:opacity-90 dark:text-brand-green-500"
           >
             See all
           </Link>
         </div>
-        <ul className="divide-y divide-border rounded-lg border bg-card">
+        <ul className="rounded-lg bg-background p-4">
           {RECENT_TRANSACTIONS.map((tx) => (
-            <li key={tx.id} className="flex items-center gap-4 px-4 py-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted/25">
-                <tx.icon className="size-5 text-muted-foreground" />
+            <li key={tx.id} className="flex items-center gap-4 py-3">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted/50 ring-1 ring-border/50 dark:ring-grey-300/40">
+                <tx.icon className="size-5 text-foreground" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="font-medium">{tx.name}</p>
-                <p className="text-sm text-muted-foreground">{tx.subtitle}</p>
+                <p className="text-sm font-semibold leading-5 text-foreground">
+                  {tx.name}
+                </p>
+                <p className="text-xs leading-5 text-muted-foreground">
+                  {tx.subtitle}
+                </p>
+              </div>
+              <div className="shrink-0 text-right">
+                <p
+                  className={
+                    tx.isCredit
+                      ? "text-sm font-semibold text-sidebar-primary"
+                      : "text-sm font-semibold text-foreground"
+                  }
+                >
+                  {tx.amount}
+                </p>
                 {tx.subAmount && (
-                  <p className="text-xs text-muted-foreground">{tx.subAmount}</p>
+                  <p className="text-xs leading-5 text-muted-foreground">
+                    {tx.subAmount}
+                  </p>
                 )}
               </div>
-              <p className={`shrink-0 text-right font-medium ${tx.isCredit ? "text-primary" : ""}`}>
-                {tx.amount}
-              </p>
             </li>
           ))}
         </ul>

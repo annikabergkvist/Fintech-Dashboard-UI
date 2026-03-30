@@ -1,6 +1,5 @@
 "use client"
 
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ModeToggle } from "@/components/mode-toggle"
 import { ChevronRight } from "lucide-react"
 
 /**
@@ -20,30 +20,30 @@ import { ChevronRight } from "lucide-react"
  */
 export function AppHeader() {
   return (
-    <header className="flex h-14 shrink-0 items-center gap-4 border-b border-border bg-background px-4">
-      <SidebarTrigger className="-ml-1" />
-      {/* DESIGNER: Replace with your logo asset or SVG; Wise uses green "WISE" wordmark */}
-      <div className="flex items-center gap-2">
-        <span className="text-xl font-bold text-primary">WISE</span>
-      </div>
-      <div className="flex flex-1" />
-      <div className="flex items-center gap-2">
-        <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+    <header className="h-14 shrink-0 bg-background">
+      <div className="mx-auto flex h-14 w-full max-w-[976px] items-center gap-4 px-4">
+        <div className="flex flex-1" />
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          <Button size="sm" variant="default">
           Earn €90
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 rounded-full px-2"
+            >
               <Avatar className="size-8">
-                <AvatarImage src="" alt="Carolina Fernandes" />
-                <AvatarFallback className="bg-muted/25 text-muted-foreground text-xs">
+                <AvatarImage src="" alt="Annika Bergkvist" />
+                <AvatarFallback className="bg-muted text-foreground/80 text-xs">
                   CF
                 </AvatarFallback>
               </Avatar>
               <span className="hidden text-sm font-medium sm:inline-block">
-                Carolina Fernandes
+                Annika Bergkvist
               </span>
-              <ChevronRight className="size-4 text-muted-foreground" />
+              <ChevronRight className="size-4 text-foreground dark:text-brand-green-500" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
@@ -59,6 +59,7 @@ export function AppHeader() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        </div>
       </div>
     </header>
   )
