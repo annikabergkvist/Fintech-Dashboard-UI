@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter } from "next/font/google"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
@@ -7,14 +7,10 @@ import { AppHeader } from "@/components/app-header"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500"],
 })
 
 export const metadata: Metadata = {
@@ -25,7 +21,7 @@ export const metadata: Metadata = {
 /**
  * DESIGNER NOTE: Root layout
  * — Global fonts and theme are applied here; body styles come from globals.css
- * — To change default font: swap Geist for another next/font or add --font-* in globals.css @theme
+ * — Inter via next/font (--font-inter); Cabinet Grotesk via Fontshare @import in globals.css
  */
 export default function RootLayout({
   children,
@@ -35,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${inter.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -46,12 +42,12 @@ export default function RootLayout({
           <TooltipProvider>
             <SidebarProvider>
               <AppSidebar />
-              <SidebarInset className="md:pl-[92px]">
-                <div className="pt-16">
+              <SidebarInset className="min-w-0 flex-1 px-4 md:pl-16 md:pr-6">
+                <div className="pt-4 md:pt-16">
                   <AppHeader />
                 </div>
-                {/* DESIGNER: Main content area — padding/layout is in page or a shared wrapper */}
-                <div className="pt-14">{children}</div>
+                {/* Mobile: px-4; desktop: sidebar gap + md:pl-16 for main-column gutter */}
+                <div className="pt-6 md:pt-14">{children}</div>
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>
