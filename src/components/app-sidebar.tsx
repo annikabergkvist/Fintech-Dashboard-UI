@@ -1,5 +1,6 @@
 "use client"
 
+import type { ComponentProps } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -19,18 +20,40 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
 
 /**
  * DESIGNER NOTE: Wise-style app sidebar (left navigation)
- * — Flat list only: Home, Cards, Transactions, Payments, Recipients, Insights (no sub-navigation).
- * — To restyle: edit className on Sidebar, or override --sidebar-* in globals.css
+ * — Desktop: fixed rail (offcanvas). Mobile: same links in a Sheet, opened from the header menu.
+ * — Nav links close the sheet on tap so the overlay does not stay open after navigation.
  */
+function NavMenuLink({
+  href,
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof Link>) {
+  const { isMobile, setOpenMobile } = useSidebar()
+  return (
+    <Link
+      href={href}
+      className={className}
+      onClick={() => {
+        if (isMobile) setOpenMobile(false)
+      }}
+      {...props}
+    >
+      {children}
+    </Link>
+  )
+}
+
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-sidebar-border/0">
-      <SidebarHeader className="mb-10 w-full items-center px-6 pb-0 pt-6">
-        <Link href="/" className="flex shrink-0" aria-label="Wise home">
+    <Sidebar collapsible="offcanvas" className="border-r border-sidebar-border/0">
+      <SidebarHeader className="mb-8 w-full items-center px-0 pb-0 pt-1 md:mb-10 md:pr-6 md:pt-0">
+        <NavMenuLink href="/" className="flex shrink-0" aria-label="Wise home">
           <Image
             src="/Logo.svg"
             alt=""
@@ -47,58 +70,58 @@ export function AppSidebar() {
             priority
             className="hidden h-5 w-auto dark:block"
           />
-        </Link>
+        </NavMenuLink>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup className="px-6 pb-6 pt-0">
+        <SidebarGroup className="px-0 pb-6 md:pr-6">
           <SidebarGroupContent>
             <SidebarMenu className="gap-2">
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <Home className="size-4" />
                     <span>Home</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <CreditCard className="size-4" />
                     <span>Cards</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <List className="size-4" />
                     <span>Transactions</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <ArrowLeftRight className="size-4" />
                     <span>Payments</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <Users className="size-4" />
                     <span>Recipients</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="lg">
-                  <Link href="/" className="flex items-center gap-3">
+                  <NavMenuLink href="/" className="flex items-center gap-3">
                     <BarChart3 className="size-4" />
                     <span>Insights</span>
-                  </Link>
+                  </NavMenuLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

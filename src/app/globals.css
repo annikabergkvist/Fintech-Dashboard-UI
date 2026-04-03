@@ -1,3 +1,4 @@
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -8,9 +9,11 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   /* Include emoji-capable system fonts as a fallback, otherwise "flag" emojis can render as blank/tofu. */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI Emoji",
-    "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif;
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI Emoji",
+    "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  --font-display: "Cabinet Grotesk", var(--font-inter), sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 
   /* Primitive palette (raw brand colours) */
   --color-grey-100: var(--grey-100);
@@ -55,6 +58,18 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* Total balance card — positive trend badge */
+  --color-balance-positive: var(--balance-positive-background);
+  --color-balance-positive-foreground: var(--balance-positive-foreground);
+  /* Total balance chart — line + area glow (no hex in components) */
+  --color-chart-balance-line-start: var(--chart-balance-line-start);
+  --color-chart-balance-line-end: var(--chart-balance-line-end);
+  --color-chart-balance-area-fade: var(--chart-balance-area-fade);
+  --color-chart-balance-area-glow: var(--chart-balance-area-glow);
+  --color-balance-trend-outline-bg: var(--balance-trend-outline-bg);
+  --color-balance-trend-outline-border: var(--balance-trend-outline-border);
+  --color-balance-trend-outline-foreground: var(--balance-trend-outline-foreground);
+  --color-balance-label-foreground: var(--balance-label-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -79,7 +94,7 @@
   --grey-100: #ffffff;
   --grey-200: #ecede8;
   --grey-300: #d7d8d2;
-  --grey-400: #5a5e58;
+  --grey-400: #5f596d;
   --grey-500: #2f322d;
   --grey-600: #0b0c0a;
   --grey-700: #000000;
@@ -91,7 +106,7 @@
   --radius: 0.625rem;
   --background: var(--grey-100);
   --foreground: var(--grey-500);
-  --card: var(--grey-100);
+  --card: color-mix(in srgb, var(--grey-200) 52%, transparent);
   --card-foreground: var(--grey-500);
   --popover: var(--grey-100);
   --popover-foreground: var(--grey-500);
@@ -124,42 +139,80 @@
   --sidebar-active-item-bg: #eeeeee;
   --sidebar-border: var(--grey-300);
   --sidebar-ring: var(--green-500);
+
+  /* Main column max width (dashboard + header) */
+  --layout-max-width: 976px;
+
+  /* Total balance — positive pill + chart (light) */
+  --chart-balance-violet: #7c3aed;
+  --balance-positive-background: var(--green-700);
+  --balance-positive-foreground: var(--green-100);
+  --chart-balance-line-start: color-mix(in srgb, var(--chart-balance-violet) 88%, var(--grey-100) 12%);
+  --chart-balance-line-end: color-mix(in srgb, var(--primary) 90%, var(--grey-700) 10%);
+  --chart-balance-area-fade: var(--card);
+  --chart-balance-area-glow: color-mix(in srgb, var(--primary) 52%, var(--chart-balance-violet) 48%);
+  --chart-balance-area-opacity-mid: 0.26;
+  --chart-balance-area-opacity-top: 0.55;
+  --balance-trend-outline-bg: var(--grey-200);
+  --balance-trend-outline-border: var(--green-500);
+  --balance-trend-outline-foreground: var(--green-700);
+  /* Total balance card — darker secondary labels (primitives) */
+  --balance-label-foreground: var(--grey-500);
 }
 
 /* DESIGNER: Dark mode — add class "dark" to <html> to enable; these vars override :root in dark mode */
 .dark {
-  --background: var(--grey-600);
-  --foreground: var(--grey-100);
-  --card: var(--grey-500);
-  --card-foreground: var(--grey-100);
-  --popover: var(--grey-500);
-  --popover-foreground: var(--grey-100);
-  --primary: var(--green-500);
-  --primary-foreground: var(--grey-600);
-  --secondary: var(--green-700);
-  --secondary-foreground: var(--green-500);
+  --background: #151121;
+  /* Near-white body copy (softer than pure #fff on dark) */
+  --foreground: #f4f4f7;
+  --card: color-mix(in srgb, #1a1a2e 46%, transparent);
+  --card-foreground: #f4f4f7;
+  --popover: #1a1a2e;
+  --popover-foreground: #f4f4f7;
+  --primary: #e8295c;
+  --primary-foreground: #ffffff;
+  --secondary: #252540;
+  --secondary-foreground: #f4f4f7;
   --muted: var(--grey-500);
   --muted-foreground: var(--grey-300);
   --accent: var(--grey-500);
-  --accent-foreground: var(--grey-100);
+  --accent-foreground: #f4f4f7;
   --destructive: #ef4444;
   --border: var(--grey-500);
   --input: var(--grey-500);
-  --ring: var(--green-500);
+  --ring: #e8295c;
   --chart-1: #6366f1;
   --chart-2: #2dd4bf;
   --chart-3: #e9c46a;
   --chart-4: #a78bfa;
   --chart-5: #f87171;
-  --sidebar: var(--grey-600);
+  --sidebar: var(--background);
   --sidebar-foreground: var(--grey-300);
   --sidebar-primary: var(--green-500);
   --sidebar-primary-foreground: var(--grey-600);
   --sidebar-accent: var(--grey-500);
-  --sidebar-accent-foreground: var(--grey-100);
-  --sidebar-active-item-bg: var(--grey-500);
+  --sidebar-accent-foreground: #f4f4f7;
+  --sidebar-active-item-bg: rgba(232, 41, 92, 0.15);
   --sidebar-border: var(--grey-500);
-  --sidebar-ring: var(--green-500);
+  --sidebar-ring: #e8295c;
+
+  /* Secondary button — dark mode border + hover (was inline in button.tsx) */
+  --button-secondary-border: #3d3d5c;
+  --button-secondary-hover-bg: #2d2d48;
+
+  /* Total balance — positive pill + chart (dark) */
+  --balance-positive-background: #0f2918;
+  --balance-positive-foreground: #86efac;
+  --chart-balance-line-start: color-mix(in srgb, var(--chart-4) 70%, white 30%);
+  --chart-balance-line-end: color-mix(in srgb, var(--primary) 88%, white 12%);
+  --chart-balance-area-fade: var(--card);
+  --chart-balance-area-glow: color-mix(in srgb, var(--primary) 55%, var(--chart-1) 45%);
+  --chart-balance-area-opacity-mid: 0.36;
+  --chart-balance-area-opacity-top: 0.7;
+  --balance-trend-outline-bg: color-mix(in srgb, var(--balance-positive-background) 58%, var(--secondary) 42%);
+  --balance-trend-outline-border: var(--green-500);
+  --balance-trend-outline-foreground: var(--balance-positive-foreground);
+  --balance-label-foreground: var(--grey-400);
 }
 
 @layer base {
