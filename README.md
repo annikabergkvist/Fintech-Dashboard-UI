@@ -1,10 +1,11 @@
 # Wise Dashboard UI — Design Engineer Project
 
-A pixel-close recreation of the [Wise](https://wise.com) dashboard, built from scratch as a design engineering exercise. The goal was to move beyond static mockups and implement a real, interactive UI using a production-ready component architecture — the same stack used in modern product teams.
+A Wise-inspired dashboard UI, redesigned and built from scratch as a design engineering exercise. The goal was to move beyond static mockups and implement a real, interactive UI using a production-ready component architecture — the same stack used in modern product teams.
 
-Live demo → [your-vercel-url.vercel.app](#) *(replace with your Vercel link)*
+**Live demo →** fintech-dashboard-ui-six.vercel.app
 
-![Dashboard preview](./preview-light.png) *(add a screenshot)*
+![Dashboard preview — dark mode](./preview-dark.png)
+![Dashboard preview — light mode](./preview-light.png)
 
 ---
 
@@ -12,7 +13,7 @@ Live demo → [your-vercel-url.vercel.app](#) *(replace with your Vercel link)*
 
 - Translating a complex, real-world product UI into clean, maintainable component code
 - Setting up and customising a design system using shadcn/ui and Tailwind CSS 4
-- Implementing semantic colour tokens for both light and dark mode
+- Implementing semantic colour tokens with full light and dark mode support
 - Structuring a Next.js App Router project the way a product team would
 - Thinking in components — knowing what to make reusable vs what to keep local
 
@@ -20,44 +21,36 @@ Live demo → [your-vercel-url.vercel.app](#) *(replace with your Vercel link)*
 
 ## Stack
 
-- **Next.js 16** — App Router
-- **shadcn/ui** — Radix-based accessible components
-- **Tailwind CSS 4** — utility-first styling
-- **TypeScript**
-
----
-
-## Getting started
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+| | |
+|---|---|
+| **Next.js** (App Router) | Framework |
+| **shadcn/ui** | Radix-based accessible components |
+| **Tailwind CSS 4** | Utility-first styling |
+| **Recharts** | Area chart for balance history |
+| **TypeScript** | Type safety throughout |
 
 ---
 
 ## Project structure
-
-```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout: sidebar, header, fonts
-│   ├── page.tsx            # Dashboard: balance, currency cards, transactions
-│   └── globals.css         # Design tokens — colours, radius, dark mode
+│   ├── layout.tsx                    # Root layout: sidebar, header, fonts
+│   ├── page.tsx                      # Dashboard: balance, currency cards, transactions
+│   └── globals.css                   # Design tokens — colours, radius, dark mode
 │
 ├── components/
-│   ├── app-header.tsx      # Top bar: logo, earn button, user menu
-│   ├── app-sidebar.tsx     # Left nav with expandable Payments submenu
-│   └── ui/                 # shadcn primitives: button, card, badge, avatar…
+│   ├── app-header.tsx                # Top bar: logo, earn button, user menu
+│   ├── app-sidebar.tsx               # Left nav with expandable Payments submenu
+│   ├── mode-toggle.tsx               # Light/dark mode toggle
+│   ├── theme-provider.tsx            # next-themes provider wrapper
+│   ├── total-balance-area-chart.tsx  # Recharts area chart — 30-day balance
+│   └── ui/                           # shadcn primitives: button, card, badge, avatar…
 │
 ├── hooks/
-│   └── use-mobile.ts       # Responsive sidebar behaviour
+│   └── use-mobile.ts                 # Responsive sidebar behaviour
 │
 └── lib/
-    └── utils.ts            # cn() helper
-```
+└── utils.ts                      # cn() helper
 
 ---
 
@@ -79,6 +72,7 @@ src/
 | Dashboard layout and content | `src/app/page.tsx` |
 | Sidebar navigation | `src/components/app-sidebar.tsx` |
 | Header | `src/components/app-header.tsx` |
+| Balance chart | `src/components/total-balance-area-chart.tsx` |
 | Button variants | `src/components/ui/button.tsx` |
 | Card styles | `src/components/ui/card.tsx` |
 
@@ -86,6 +80,6 @@ src/
 
 ## About
 
-Built by [Annika Bergkvist](https://annika-b.webflow.io) — design engineer based in Sweden, working at the intersection of product design and frontend development.
+Built by [Annika Bergkvist](https://annika-b.webflow.io) — Design Engineer based in Sweden, bridging product design and frontend development.
 
 [LinkedIn](https://www.linkedin.com/in/annikabergkvist/) · [GitHub](https://github.com/annikabergkvist)
