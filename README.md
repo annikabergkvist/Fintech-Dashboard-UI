@@ -4,8 +4,12 @@ A Wise-inspired dashboard UI, redesigned and built from scratch as a design engi
 
 **Live demo →** [fintech-dashboard-ui-six.vercel.app](https://fintech-dashboard-ui-six.vercel.app)
 
-<img src="./preview-dark.png" width="800" alt="Dashboard preview — dark mode" />
-<img src="./preview-light.png" width="800" alt="Dashboard preview — light mode" />
+<a href="./preview-dark.png">
+  <img src="./preview-dark.png" width="400" alt="Dashboard preview — dark mode" />
+</a>
+<a href="./preview-light.png">
+  <img src="./preview-light.png" width="400" alt="Dashboard preview — light mode" />
+</a>
 
 ---
 
