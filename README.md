@@ -2,10 +2,10 @@
 
 A Wise-inspired dashboard UI, redesigned and built from scratch as a design engineering exercise. The goal was to move beyond static mockups and implement a real, interactive UI using a production-ready component architecture — the same stack used in modern product teams.
 
-**Live demo →** fintech-dashboard-ui-six.vercel.app
+**Live demo →** [fintech-dashboard-ui-six.vercel.app](https://fintech-dashboard-ui-six.vercel.app)
 
-![Dashboard preview — dark mode](./preview-dark.png)
-![Dashboard preview — light mode](./preview-light.png)
+<img src="./preview-dark.png" width="800" alt="Dashboard preview — dark mode" />
+<img src="./preview-light.png" width="800" alt="Dashboard preview — light mode" />
 
 ---
 
